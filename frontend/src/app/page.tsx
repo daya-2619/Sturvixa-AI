@@ -28,7 +28,7 @@ export default function LandingPage() {
 
   // Stateful authentication gate hooks
   // Intercept all secure dashboard transitions
-  const handleConsoleNavigate = (e: React.MouseEvent<HTMLElement> | null, path: string, mode: "demo" = "demo") => {
+  const handleConsoleNavigate = (e: React.MouseEvent<HTMLElement> | null, path: string, mode: "login" | "demo" = "login") => {
     // If it's a demo click, we can still show the demo modal
     if (mode === "demo") {
       if (e) e.preventDefault();
