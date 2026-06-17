@@ -3,18 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
+import { SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
 import { Menu, X, Search, Bell, Settings, Sparkles, Send, Activity, CheckCircle2, MessageSquare, ArrowRight, LayoutGrid, Database, Cloud, Network, Terminal, Check, Globe, Mail, Loader2, LogIn, Zap, Power, Rocket, Star, ChevronRight, ShieldCheck, RefreshCw, Server, AlertTriangle, ArrowLeftRight, HelpCircle, HardDrive, Cpu, Compass, GitBranch, Layers } from 'lucide-react';
 
 export default function LandingPage() {
   const router = useRouter();
   
   // Interactive hooks for authentication and mobile menu
-  const [showLoginModal, setShowLoginModal] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [email, setEmail] = useState("admin@sturvixa.ai");
-  const [password, setPassword] = useState("********");
-  const [authError, setAuthError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   // Dynamic sandbox demo registration states
@@ -26,23 +22,20 @@ export default function LandingPage() {
   const [demoSubmitted, setDemoSubmitted] = useState(false);
 
   // Stateful authentication gate hooks
-  const { data: session, status } = useSession();
-  const isAuthenticated = status === "authenticated";
-  const [redirectPath, setRedirectPath] = useState("/console/dashboard");
-
   // Intercept all secure dashboard transitions
-  const handleConsoleNavigate = (e: React.MouseEvent<HTMLElement> | null, path: string, mode: "login" | "demo" = "login") => {
-    if (isAuthenticated) {
+  const handleConsoleNavigate = (e: React.MouseEvent<HTMLElement> | null, path: string, mode: "demo" = "demo") => {
+    // If it's a demo click, we can still show the demo modal
+    if (mode === "demo") {
       if (e) e.preventDefault();
-      router.push(path);
-      return;
+      setModalMode(mode);
+      setDemoSubmitted(false);
+      // We removed showLoginModal, let's keep the modal just for demo
+      // Wait, we can just let Clerk handle authentication. If they want the demo modal, we'll need to re-add a state for it.
+      // Actually, let's just make everything go to the dashboard or let Clerk handle it.
+      if (path) router.push(path);
+    } else {
+      if (path) router.push(path);
     }
-    if (e) e.preventDefault();
-    setRedirectPath(path);
-    setModalMode(mode);
-    setDemoSubmitted(false);
-    setAuthError("");
-    setShowLoginModal(true);
   };
 
   // Handles Mock Demo Request Submit
@@ -335,13 +328,16 @@ export default function LandingPage() {
           <Link href="/console/dashboard" onClick={(e) => handleConsoleNavigate(e, "/console/dashboard")} className="p-2 text-on-surface-variant hover:text-primary transition-colors cursor-pointer flex items-center">
             <Settings  />
           </Link>
-          <Link href="/console/dashboard" onClick={(e) => handleConsoleNavigate(e, "/console/dashboard")} className="flex items-center ml-base">
-            <img 
-              alt="User profile" 
-              className="w-8 h-8 rounded-full border border-white/10 cursor-pointer hover:border-primary/50 transition-colors" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKb4D59AeMNGbOL032mPxK0vVdxSz3C-BAQkZg1IW6z-mTn-JiAVB4GThQVbkHDfR6gLAfnQvGHonowy3N4UIexa0wc2CAeDDYmfIPRinZ1h9CtcrWxQfH0FmGyHfAxUZY8hWr8IjRITDwIrB1-CWq6V6GeDHGWDN-B4Ia1nzST-VVbY6x_SkF6xzi-Xu6BLLTncNeUabjsAMTvECYM5n6ukxHAznCJMQ6mX94IQGgBxbx4tZkWlcHZg7p25SK_vErbA4nfvLOOilO"
-            />
-          </Link>
+          <Show when="signed-out">
+            <SignInButton mode="modal">
+              <button className="flex items-center ml-base text-sm font-medium text-primary hover:text-primary/80 transition-colors">Log In</button>
+            </SignInButton>
+          </Show>
+          <Show when="signed-in">
+            <div className="flex items-center ml-base">
+              <UserButton />
+            </div>
+          </Show>
         </div>
       </header>
 
@@ -379,12 +375,20 @@ export default function LandingPage() {
             
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6 w-full max-w-2xl mx-auto">
-              <Link 
-                href="/console/dashboard"
-                onClick={(e) => handleConsoleNavigate(e, "/console/dashboard")}
-                className="inline-flex h-14 w-full min-w-[220px] items-center justify-center sm:w-auto px-8 whitespace-nowrap bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container font-bold rounded-xl shadow-lg hover:scale-[1.02] transition-transform shimmer overflow-hidden relative cursor-pointer text-center">
-                Start Free Trial
-              </Link>
+              <Show when="signed-out">
+                <SignUpButton mode="modal">
+                  <button className="inline-flex h-14 w-full min-w-[220px] items-center justify-center sm:w-auto px-8 whitespace-nowrap bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container font-bold rounded-xl shadow-lg hover:scale-[1.02] transition-transform shimmer overflow-hidden relative cursor-pointer text-center">
+                    Start Free Trial
+                  </button>
+                </SignUpButton>
+              </Show>
+              <Show when="signed-in">
+                <Link 
+                  href="/console/dashboard"
+                  className="inline-flex h-14 w-full min-w-[220px] items-center justify-center sm:w-auto px-8 whitespace-nowrap bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container font-bold rounded-xl shadow-lg hover:scale-[1.02] transition-transform shimmer overflow-hidden relative cursor-pointer text-center">
+                  Go to Dashboard
+                </Link>
+              </Show>
               <button 
                 onClick={(e) => handleConsoleNavigate(e, "/console/dashboard", "demo")}
                 className="inline-flex h-14 w-full min-w-[220px] items-center justify-center sm:w-auto px-8 whitespace-nowrap border border-outline-variant text-on-surface font-semibold rounded-xl hover:bg-white/5 transition-colors relative overflow-hidden group cursor-pointer"

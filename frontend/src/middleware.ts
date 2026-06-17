@@ -1,11 +1,4 @@
-import { withAuth } from "next-auth/middleware";
+import middleware, { config as proxyConfig } from "./proxy";
 
-export default withAuth({
-  pages: {
-    signIn: "/",
-  },
-});
-
-export const config = {
-  matcher: ["/console/:path*"],
-};
+export default middleware;
+export const config = proxyConfig;

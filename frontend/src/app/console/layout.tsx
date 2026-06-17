@@ -3,7 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { Activity, AlertOctagon, AlertTriangle, ArrowLeftRight, ArrowRight, Beaker, Bell, Brain, Calendar, Check, CheckCircle2, ChevronRight, Cloud, Compass, Copy, Cpu, CreditCard, Database, Eye, EyeOff, GitBranch, Globe, HardDrive, HelpCircle, Key, Layers, LayoutGrid, Loader2, LogIn, LogOut, Mail, Menu, MessageSquare, Network, PieChart, Play, Power, RefreshCw, Rocket, Search, Send, Server, Settings, ShieldCheck, Sliders, SlidersHorizontal, Sparkles, Star, Terminal, TrendingUp, Users, Wallet, X, Zap } from 'lucide-react';
 import { useState } from "react";
-import { useSession, signOut } from "next-auth/react";
+import { UserButton } from "@clerk/nextjs";
 
 interface MenuItem {
   name: string;
@@ -25,7 +25,6 @@ export default function ConsoleLayout({
   const [profileOpen, setProfileOpen] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
-  const { data: session } = useSession();
 
   const menuItems: MenuItem[] = [
     {
