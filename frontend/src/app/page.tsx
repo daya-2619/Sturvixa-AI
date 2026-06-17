@@ -12,6 +12,10 @@ export default function LandingPage() {
   // Interactive hooks for authentication and mobile menu
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [authError, setAuthError] = useState("");
 
   // Dynamic sandbox demo registration states
   const [modalMode, setModalMode] = useState<"login" | "demo">("login");
