@@ -16,6 +16,7 @@ export default function LandingPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [authError, setAuthError] = useState("");
+  const [redirectPath, setRedirectPath] = useState("/console/dashboard");
 
   // Dynamic sandbox demo registration states
   const [modalMode, setModalMode] = useState<"login" | "demo">("login");
