@@ -402,7 +402,7 @@ export default function LandingPage() {
             className="block relative mt-xl w-full max-w-6xl mx-auto glass-panel rounded-2xl p-2 md:p-base shadow-2xl float-anim cursor-pointer hover:border-primary/30 transition-all duration-300 z-20 reveal active overflow-hidden"
           >
             <div className="crystalline absolute inset-0 rounded-2xl"></div>
-            <div className="bg-surface-container-lowest rounded-xl overflow-hidden border border-white/5 flex flex-col lg:flex-row aspect-auto min-h-[420px] lg:aspect-[21/9]">
+            <div className="bg-surface-container-lowest rounded-xl overflow-hidden border border-white/5 flex flex-col lg:flex-row aspect-auto min-h-[420px]">
               
               {/* Sidebar Mockup */}
               <div className="hidden md:flex w-16 border-r border-white/5 flex-col items-center py-6 space-y-md">
