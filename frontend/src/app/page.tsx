@@ -349,7 +349,7 @@ export default function LandingPage() {
         {/* Hero Section */}
         <section 
           ref={heroSectionRef} 
-          className="relative min-h-[760px] lg:min-h-[900px] flex flex-col items-center justify-center pt-20 md:pt-24 pb-12 md:pb-16 px-4 md:px-8 overflow-hidden" 
+          className="relative min-h-[760px] lg:min-h-[900px] flex flex-col items-center justify-center pt-20 md:pt-24 pb-12 md:pb-16 px-4 md:px-8" 
           id="hero"
         >
           {/* Shifting radial color backdrops */}
@@ -399,7 +399,7 @@ export default function LandingPage() {
           <Link 
             href="/console/dashboard"
             onClick={(e) => handleConsoleNavigate(e, "/console/dashboard")}
-            className="block relative mt-xl w-full max-w-6xl mx-auto glass-panel rounded-2xl p-2 md:p-base shadow-2xl float-anim cursor-pointer hover:border-primary/30 transition-all duration-300 z-20 reveal active overflow-hidden"
+            className="block relative mt-xl w-full max-w-6xl mx-auto glass-panel rounded-2xl p-2 md:p-base shadow-2xl float-anim cursor-pointer hover:border-primary/30 transition-all duration-300 z-20 reveal active"
           >
             <div className="crystalline absolute inset-0 rounded-2xl"></div>
             <div className="bg-surface-container-lowest rounded-xl overflow-hidden border border-white/5 flex flex-col lg:flex-row aspect-auto min-h-[420px]">
