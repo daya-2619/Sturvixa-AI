@@ -926,11 +926,11 @@ export default function LandingPage() {
                       <button 
                         onClick={async () => {
                           setIsLoading(true);
-                          await signIn("credentials", {
-                            redirect: false,
-                            email: "admin@sturvixa.ai",
-                            password: "admin",
-                          });
+                          setTimeout(() => {
+                            setIsLoading(false);
+                            setShowLoginModal(false);
+                            router.push(redirectPath);
+                          }, 1000);
                           setIsLoading(false);
                           setShowLoginModal(false);
                           router.push(redirectPath);
