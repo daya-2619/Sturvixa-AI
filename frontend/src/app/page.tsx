@@ -874,7 +874,7 @@ export default function LandingPage() {
                       <p className="text-sm text-outline">Enter credentials to access the enterprise intelligence suite.</p>
                     </div>
 
-                    <form onSubmit={handleLoginSubmit} className="space-y-5 relative z-10">
+                    <form onSubmit={(e) => e.preventDefault()} className="space-y-5 relative z-10">
                       {authError && (
                         <div className="p-4 bg-error/10 border border-error/35 text-error text-[10px] md:text-xs font-semibold tracking-wider uppercase rounded-lg">
                           {authError}
