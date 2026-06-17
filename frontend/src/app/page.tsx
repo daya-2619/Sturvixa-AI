@@ -241,33 +241,7 @@ export default function LandingPage() {
     return () => observer.disconnect();
   }, []);
 
-  // Handles Mock Sign In
-  const handleLoginSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !password) {
-      setAuthError("Email and password are required.");
-      return;
-    }
-
-    setIsLoading(true);
-    setAuthError("");
-
-    const res = await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
-    });
-
-    setIsLoading(false);
-
-    if (res?.error) {
-      setAuthError("Invalid credentials.");
-    } else {
-      setShowLoginModal(false);
-      router.push(redirectPath);
-    }
-  };
-
+  // handleLoginSubmit was removed.
   return (
     <div className="flex min-w-0 flex-col flex-1 bg-background text-on-surface select-none relative">
       
