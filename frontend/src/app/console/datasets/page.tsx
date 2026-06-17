@@ -43,7 +43,7 @@ export default function DatasetsPage() {
 
   // Fetch actual database schema from backend
   const fetchTableCounts = () => {
-    fetch("http://127.0.0.1:8000/api/neondb/tables")
+    fetch("/api/neondb/tables")
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
@@ -66,7 +66,7 @@ export default function DatasetsPage() {
     logDatabase("Database sync engine loaded. Resolving connection settings...");
     
     // Fetch NeonDB config
-    fetch("http://127.0.0.1:8000/api/neondb/config")
+    fetch("/api/neondb/config")
       .then(res => res.json())
       .then(data => {
         if (data.database_url) {
@@ -103,7 +103,7 @@ export default function DatasetsPage() {
     logDatabase("Committing PostgreSQL connection string to environment properties...");
     
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/neondb/config", {
+      const res = await fetch("/api/neondb/config", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ database_url: dbUrl })
@@ -141,7 +141,7 @@ export default function DatasetsPage() {
     logDatabase("Executing remote connection test to NeonDB cluster...");
     
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/neondb/test-connection", {
+      const res = await fetch("/api/neondb/test-connection", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ database_url: dbUrl })
@@ -208,7 +208,7 @@ export default function DatasetsPage() {
     formData.append("mode", ingestMode);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/neondb/ingest", {
+      const res = await fetch("/api/neondb/ingest", {
         method: "POST",
         body: formData
       });
@@ -241,7 +241,7 @@ export default function DatasetsPage() {
     logDatabase("Connecting to database & scanning data directories...");
     
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/neondb/run-etl", {
+      const res = await fetch("/api/neondb/run-etl", {
         method: "POST"
       });
       setEtlProgress(60);

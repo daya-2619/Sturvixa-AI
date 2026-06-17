@@ -83,7 +83,7 @@ export default function ModelsPage() {
   // Fetch dynamic model telemetry from backend
   const fetchModelTelemetry = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/models/telemetry");
+      const response = await fetch("/api/models/telemetry");
       if (response.ok) {
         const data = await response.json();
         setModels(data);

@@ -48,7 +48,7 @@ export default function AnalyticsPage() {
   const [telemetry, setTelemetry] = useState({ cpu: 0, ram: 0, latency: 0, active_requests: 0 });
 
   useEffect(() => {
-    const ws = new WebSocket("ws://127.0.0.1:8000/ws/telemetry");
+    const ws = new WebSocket(`ws://${window.location.host}/ws/telemetry`);
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       setTelemetry(data);
@@ -58,7 +58,7 @@ export default function AnalyticsPage() {
   const fetchSimulation = async (cq: number, cp: number, pq: number, pp: number) => {
     setLoadingSimulation(true);
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/simulate", {
+      const response = await fetch("/api/simulate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -87,7 +87,7 @@ export default function AnalyticsPage() {
   const fetchLogs = async (search: string, status: string) => {
     setLoadingLogs(true);
     try {
-      let url = `http://127.0.0.1:8000/api/logs?`;
+      let url = `/api/logs?`;
       if (search) url += `search=${encodeURIComponent(search)}&`;
       if (status && status !== "All") url += `status=${encodeURIComponent(status)}&`;
       
@@ -130,7 +130,7 @@ export default function AnalyticsPage() {
 
   const fetchModels = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/models/telemetry");
+      const response = await fetch("/api/models/telemetry");
       if (response.ok) {
         const data = await response.json();
         setModels(data);
@@ -200,7 +200,7 @@ export default function AnalyticsPage() {
 
   const fetchDiagnosisResults = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/diagnose", { method: "POST" });
+      const response = await fetch("/api/diagnose", { method: "POST" });
       if (response.ok) {
         const data = await response.json();
         setDiagnosisResult(data.results);

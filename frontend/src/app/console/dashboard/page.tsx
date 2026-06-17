@@ -47,7 +47,7 @@ export default function DashboardPage() {
     setError(null);
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/dashboard-stats?region=${encodeURIComponent(r)}&days=${d}`
+        `/api/dashboard-stats?region=${encodeURIComponent(r)}&days=${d}`
       );
       if (response.ok) {
         const data = await response.json();

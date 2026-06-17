@@ -18,6 +18,7 @@ An enterprise-grade, real-time SaaS platform built with a high-performance moder
 - **Real-Time**: Async WebSockets
 
 ### DevOps & Infrastructure
+- **API Gateway & Load Balancing**: Nginx
 - **Containerization**: Docker & Docker Compose (Multi-container orchestration)
 - **Optimization**: Next.js Standalone build & Alpine Python Slim images
 - **CI/CD**: GitHub Actions (Linting, Build Testing, Docker Verification)
@@ -29,16 +30,19 @@ An enterprise-grade, real-time SaaS platform built with a high-performance moder
 1. **Enterprise Data Pipeline (ETL)**
    Offloads processing of 140,000+ data rows to Celery background workers to keep the main thread unblocked. Fast, efficient, and reliable data ingestion into a cloud-hosted Postgres database.
 
-2. **Ultra-Low Latency Caching**
+2. **API Gateway & Load Balancing**
+   All traffic routes through an Nginx reverse proxy which load balances API requests across multiple horizontally-scaled FastAPI container replicas via Round-Robin distribution.
+
+3. **Ultra-Low Latency Caching**
    Heavy SQL analytical aggregations are cached seamlessly via Redis, reducing repeated request latencies by over 80%.
 
-3. **Live Telemetry Streams**
+4. **Live Telemetry Streams**
    Pulsing real-time server telemetry widgets built on a bidirectional WebSocket connection to eliminate HTTP polling constraints.
 
-4. **Premium UI/UX Design**
+5. **Premium UI/UX Design**
    Stunning user interface featuring custom CSS variables, dynamic bento-box grids, smooth micro-animations, and responsive accessibility across all devices.
 
-5. **Production-Ready CI/CD**
+6. **Production-Ready CI/CD**
    A robust GitHub Actions pipeline ensures code quality via flake8 and automatically tests Node.js/Docker builds on every push.
 
 ---
