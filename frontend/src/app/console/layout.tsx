@@ -147,36 +147,8 @@ export default function ConsoleLayout({
           </button>
 
           {/* User profile dropdown drawer */}
-          <div className="relative">
-            <button 
-              onClick={() => setProfileOpen(!profileOpen)}
-              className="w-8 h-8 rounded-full border border-white/10 overflow-hidden ml-sm cursor-pointer hover:border-primary/50 transition-colors"
-            >
-              <img 
-                alt="Dayamay Das profile" 
-                className="w-full h-full object-cover" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBliHfxAgSkrnilnO_mr2EtqlHRD1NNnmQf1XOfHu_menIuZ6VUT7m4fJhWcGiDmi0PxZjbk_Ok4fXib1IepMeQBecyJy9-gX_c7njIDlkw9LhcibNMURIhl0yrsCzbuddGiqdBinoPPMGKORP7ZrmQObCcb4W8SE8-FYwg_qcjYdVeVAk4SCx4FmgI8ou132nzpXX8imzivIiWqy0vQgqkulPEhCC_VNlBiDpxhxXGrlQhyt1loQ5dNa4kiOFcTPJVZhb79XW1OE0G"
-              />
-            </button>
-            
-            {profileOpen && (
-              <div className="absolute right-0 top-10 w-56 p-6 bg-surface-container-high border border-white/10 rounded-xl shadow-2xl z-50 animate-fade-in text-left">
-                <p className="font-bold text-on-surface text-xs md:text-sm font-medium">{session?.user?.name || "Dayamay Das"}</p>
-                <p className="text-[10px] text-outline uppercase tracking-wider">{((session?.user as any)?.role || "Chief Data Officer").toUpperCase()}</p>
-                <div className="border-t border-white/5 my-sm"></div>
-                <button 
-                  onClick={async () => {
-                    setProfileOpen(false);
-                    await signOut({ redirect: false });
-                    router.push("/");
-                  }}
-                  className="w-full text-left py-1 text-[10px] md:text-xs font-semibold tracking-wider uppercase text-error hover:brightness-110 flex items-center gap-2 font-bold"
-                >
-                  <Power className="w-4 h-4 text-error" />
-                  Terminate Session
-                </button>
-              </div>
-            )}
+          <div className="relative flex items-center ml-sm">
+            <UserButton />
           </div>
         </div>
       </header>
