@@ -59,12 +59,7 @@ export default function LandingPage() {
       setDemoSubmitted(true);
       
       // Auto redirect to dashboard after showing success animation
-      setTimeout(async () => {
-        await signIn("credentials", {
-          redirect: false,
-          email: "admin@sturvixa.ai",
-          password: "admin",
-        });
+      setTimeout(() => {
         setShowLoginModal(false);
         setDemoSubmitted(false);
         router.push(redirectPath);
