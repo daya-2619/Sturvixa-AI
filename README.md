@@ -58,8 +58,8 @@ Running the entire stack requires just a single command via Docker Compose.
 ### Quick Start
 ```bash
 # Clone the repository
-git clone https://github.com/daya-2619/InsightForge-AI3.git
-cd InsightForge-AI3
+git clone https://github.com/daya-2619/Sturvixa-AI.git
+cd Sturvixa-AI
 
 # Build and deploy the quad-stack (Redis, Celery, FastAPI, Next.js)
 docker-compose up --build -d
